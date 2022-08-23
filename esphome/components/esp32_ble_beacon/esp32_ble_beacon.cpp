@@ -124,6 +124,12 @@ void ESP32BLEBeacon::ble_setup() {
     return;
   }
 
+  update_adv_data();
+}
+
+void ESP32BLEBeacon::update_adv_data() {
+  ESP_LOGD(TAG, "Updating BLE Beacon data -- Major: %u, Minor: %u", global_esp32_ble_beacon->major_,
+           global_esp32_ble_beacon->minor_);
   esp_ble_ibeacon_t ibeacon_adv_data;
   memcpy(&ibeacon_adv_data.ibeacon_head, &IBEACON_COMMON_HEAD, sizeof(esp_ble_ibeacon_head_t));
   memcpy(&ibeacon_adv_data.ibeacon_vendor.proximity_uuid, global_esp32_ble_beacon->uuid_.data(),
